@@ -13,17 +13,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Crear carpeta temporal de build
+      run: mkdir build && xcopy * build /E /Y /I
+
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
-    - name: Descargar DotNetCompilerPlatform en carpeta padre
-      run: nuget install Microsoft.CodeDom.Providers.DotNetCompilerPlatform -Version 4.1.0 -OutputDirectory       ../packages
+    - name: Descargar paquete necesario en carpeta accesible
+      working-directory: build
+      run: nuget install Microsoft.CodeDom.Providers.DotNetCompilerPlatform -Version 4.1.0 -OutputDirectory ../packages
 
-    - name: Restaurar NuGet packages en carpeta padre
+    - name: Restaurar paquetes NuGet en carpeta accesible
+      working-directory: build
       run: nuget restore Prueba_NET_SQL.sln -PackagesDirectory ../packages
 
-
-    - name: Verificar contenido de carpeta packages
+    - name: Verificar contenido de ../packages
       run: dir packages /s
       shell: cmd
 
@@ -31,6 +35,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.3
 
     - name: Build ASP.NET app
+      working-directory: build
       run: msbuild Prueba_NET_SQL.sln /p:Configuration=Release
       shell: cmd
 
@@ -40,5 +45,5 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: bin\Release\
+        local-dir: build\bin\Release\
         server-dir: ${{ secrets.FTP_DESTINATION }}

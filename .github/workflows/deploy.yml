@@ -1,0 +1,36 @@
+name: Build and Deploy ASP.NET to Somee
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore Prueba_NET_SQL.sln
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3
+
+    - name: Build ASP.NET app
+      run: msbuild Prueba_NET_SQL.sln /p:Configuration=Release
+      shell: cmd
+
+    - name: Deploy to Somee via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: Prueba_NET_SQL\bin\Release\
+        server-dir: ${{ secrets.FTP_DESTINATION }}

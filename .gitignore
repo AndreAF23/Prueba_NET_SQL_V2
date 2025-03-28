@@ -1,0 +1,63 @@
+﻿## Archivos compilados y binarios
+bin/
+obj/
+
+## Paquetes NuGet instalados
+packages/
+
+## Configuración específica del usuario
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Carpetas de Visual Studio
+.vs/
+
+## Archivos específicos de IIS (Publicación local)
+Publish/
+
+## Archivos generados automáticamente
+Generated_Code/
+
+## Archivos temporales
+*.cache
+*.log
+*.tmp
+
+## Archivos específicos de la base de datos SQL Server
+App_Data/*.mdf
+App_Data/*.ldf
+
+## Ignorar respaldos de archivos de proyecto
+*.csproj.user
+*.vbproj.user
+*.dbmdl
+
+## Ignorar archivos de publicación web
+*.publishsettings
+
+## Archivos sensibles y de configuración secreta
+*.config
+!web.config   # Excepto el web.config principal del proyecto
+!packages.config  # ← Esta línea permite subir packages.config
+
+## Carpetas generadas por pruebas
+TestResults/
+
+## Ignorar carpetas de logs o registros
+Logs/
+
+## Ignorar archivos del control de versiones anterior (si existieran)
+.svn/
+.hg/
+
+## Archivos del sistema operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+## Visual Studio profiler
+*.vsp
+*.vspx

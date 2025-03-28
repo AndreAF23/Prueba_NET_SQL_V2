@@ -23,6 +23,9 @@ jobs:
       run: dir packages /s
       shell: cmd
 
+    - name: Descargar DotNetCompilerPlatform manualmente
+      run: nuget install Microsoft.CodeDom.Providers.DotNetCompilerPlatform -Version 2.0.1 -OutputDirectory       packages
+
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.3
 

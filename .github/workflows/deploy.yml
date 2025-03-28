@@ -16,11 +16,13 @@ jobs:
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
-    - name: Forzar instalación de DotNetCompilerPlatform en packages/
-      run: nuget install Microsoft.CodeDom.Providers.DotNetCompilerPlatform -Version 4.1.0 -OutputDirectory packages
+    - name: Forzar instalación en ruta esperada por MSBuild
+      run: nuget install Microsoft.CodeDom.Providers.DotNetCompilerPlatform -Version 4.1.0 -OutputDirectory       ../packages
+
 
     - name: Restaurar NuGet packages
-      run: nuget restore Prueba_NET_SQL.sln -PackagesDirectory packages
+      run: nuget restore Prueba_NET_SQL.sln -PackagesDirectory ../packages
+
 
     - name: Verificar contenido de carpeta packages
       run: dir packages /s
